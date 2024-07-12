@@ -1,13 +1,68 @@
 <html>
   <style>
-    body {
+body {
   margin: 0px;
+  overflow:hidden;
+  height:100vh;
+  width:100vw;
 }
 canvas {
   background: #232323;
+  filter: blur(1px);
 }
+.form{
+    width:50vw;
+    height:75vh;
+    background-color:white;
+    z-index:10;
+    position:absolute;
+    top:10%;
+    left:25%;
+    border-radius:10px;
+    
+}
+/* Apply the hue-rotate filter animation to the .para class */
+.para, .line {
+  animation: hueShift 5s infinite linear;
+  -webkit-animation: hueShift 5s infinite linear;
+  background: linear-gradient(to right, red, yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Define the keyframes for the hueShift animation */
+@keyframes hueShift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@-webkit-keyframes hueShift {
+  0% {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  100% {
+    -webkit-filter: hue-rotate(360deg);
+  }
+}
+
   </style>
   <body>
+    <div style="text-align:center;" class="form">
+      <h1 class="para">This is my home</h1>
+      <p class="para">a few things about me</p>
+        <li class="line">I'm a guy</li>
+        <li class="line">I'm 17</li>
+        <li class="line">I know how to code a lot</li>
+        <li class="line">I make games</li>
+        <p class="para">thats it not much else</p>
+        <p class="para">talk to me and I'll talk </p>
+    </div>
 <canvas id="canvas"></canvas>
   <script>
     var canvas = document.getElementById("canvas"),
