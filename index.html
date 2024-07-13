@@ -21,10 +21,10 @@ canvas {
     border-radius:10px;
     
 }
-/* Apply the hue-rotate filter animation to the .para class */
+
 .para, .line {
-  animation: hueShift 5s infinite linear;
-  -webkit-animation: hueShift 5s infinite linear;
+  animation: hueShift 2s infinite linear;
+  -webkit-animation: hueShift 2s infinite linear;
   background: linear-gradient(to right, red, yellow, green, cyan, blue, violet);
   -webkit-background-clip: text;
   background-clip: text;
@@ -32,7 +32,6 @@ canvas {
   -webkit-text-fill-color: transparent;
 }
 
-/* Define the keyframes for the hueShift animation */
 @keyframes hueShift {
   0% {
     filter: hue-rotate(0deg);
@@ -42,19 +41,26 @@ canvas {
   }
 }
 
-@-webkit-keyframes hueShift {
-  0% {
-    -webkit-filter: hue-rotate(0deg);
-  }
-  100% {
-    -webkit-filter: hue-rotate(360deg);
-  }
+@import url('https://fonts.cdnfonts.com/css/ds-digital');
+#clock {
+    font-family:'DS-Digital';
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size:35px;
+}
+.day{
+    background:url("https://codehs.com/uploads/d46c5c745c52a54569a8a0ae63ad10b9");
+}
+.night{
+    background:url("https://codehs.com/uploads/d7537292ae1be47cd8633afe12b27675");
 }
 
   </style>
   <body>
     <div style="text-align:center;" class="form">
       <h1 class="para">This is my home</h1>
+      <h1 class="para">My time currently is:</h1>
+      <h1 id="clock"></h1>
       <p class="para">a few things about me</p>
         <li class="line">I'm a guy</li>
         <li class="line">I'm 17</li>
@@ -72,6 +78,8 @@ canvas {
     var lineColorInterval; // Interval for updating line color
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    var clock = document.getElementById("clock");
+var chance = document.getElementById("chance");
 
     var stars = [], // Array that contains the stars
       FPS = 60, // Frames per second
@@ -82,6 +90,21 @@ canvas {
       }; // mouse location
 
     // Push stars to array
+    function clockrun() {
+var e = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}));;
+if (e.getSeconds() < 10) {var secondsclock = "0" + e.getSeconds();} else {var secondsclock = e.getSeconds();}
+if (e.getMinutes() < 10) {var Minutesclock = "0" + e.getMinutes();} else {var Minutesclock = e.getMinutes();}
+if (e.getHours() === 0) {var Hoursclock = 12;var amorpm = "am";} else if (e.getHours() > 12) {var Hoursclock = e.getHours() - 12;var amorpm = "pm";} else {if (e.getHours() < 10) {var Hoursclock = "0" + e.getHours();} else {var Hoursclock = e.getHours();}var amorpm = "am";}
+clock.innerHTML = Hoursclock + ":" + Minutesclock + ":" + secondsclock + "    " + amorpm;
+if (amorpm == "pm") {
+clock.classList.add("night");
+clock.classList.remove("day");
+} else {
+clock.classList.add("day");
+clock.classList.remove("night");
+}
+requestAnimationFrame(clockrun);
+}
 
     for (var i = 0; i < x; i++) {
       stars.push({
@@ -182,6 +205,7 @@ canvas {
     }
 
     // Start the animation loop
+    clockrun();
     tick();
   </script>
   </body>
