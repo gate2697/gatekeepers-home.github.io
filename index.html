@@ -57,13 +57,13 @@ canvas {
   </style>
   <body>
     <div style="text-align:center;" class="form">
-      <h1 class="para">Hello there!</h1>
-      <h3 class="para">The names Gate but you can call me:</h3>
-      <p class="para">Template, Gatekeeper, or Doctorbroccoli</p>
-      <p class="para">or if you know my real name (you're lucky if you know my real name since I hide it very well)</p>
-      <h1 class="para" id="clock"></h1><p class="para">a few things about me:</p><p class="para">I'm a guy obviously</p><p class="para">I enjoy time with my friends consider being one</p><p class="para">I can code websites and software</p><p class="para">I have fun making stuff</p><p class="para">You can get close to me I'm not a person to block people</p><p class="para">I enjoy talking to people that are close to me nothing against you if I don't talk to you much thats my fault</p>
-      <p class="para"> and yes I made this don't think I'm lying</p>
-      <p class="para">I always hide secrets you just have to find them (hint its a sequence of buttons)</p>
+      <h1 class="me">Hello there!</h1>
+      <h3 class="me">The names Gate but you can call me:</h3>
+      <p class="me">Template, Gatekeeper, or Doctorbroccoli</p>
+      <p class="me">or if you know my real name (you're lucky if you know my real name since I hide it very well)</p>
+      <h1 class="para" id="clock"></h1><p class="me">a few things about me:</p><p class="me">I'm a guy obviously</p><p class="me">I enjoy time with my friends consider being one</p><p class="me">I can code websites and software</p><p class="me">I have fun making stuff</p><p class="me">You can get close to me I'm not a person to block people</p><p class="me">I enjoy talking to people that are close to me nothing against you if I don't talk to you much thats my fault</p>
+      <p class="me"> and yes I made this don't think I'm lying</p>
+      <p class="me" >I always hide secrets you just have to find them (hint its a sequence of buttons)</p>
     </div>
 <canvas id="canvas"></canvas>
   <script>
@@ -76,17 +76,7 @@ canvas {
     canvas.height = window.innerHeight;
     var clock = document.getElementById("clock");
 var chance = document.getElementById("chance");
-
-    var stars = [], // Array that contains the stars
-      FPS = 60, // Frames per second
-      x = 100, // Number of stars
-      mouse = {
-        x: 0,
-        y: 0
-      }; // mouse location
-
-    // Push stars to array
-    function clockrun() {
+function clockrun() {
 var e = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}));;
 if (e.getSeconds() < 10) {var secondsclock = "0" + e.getSeconds();} else {var secondsclock = e.getSeconds();}
 if (e.getMinutes() < 10) {var Minutesclock = "0" + e.getMinutes();} else {var Minutesclock = e.getMinutes();}
@@ -101,27 +91,59 @@ clock.classList.remove("night");
 }
 requestAnimationFrame(clockrun);
 }
+var me = document.getElementById("me");
+var colorIndex = 0;
+    var colorChangeSpeed = 1.5;
+    var normalSpeed = 0.3;
+    var boostedSpeed = 25;
+    var boostDuration = 100; // Duration of boost in milliseconds
+    var boostInterval = 10; // Interval in milliseconds to check for boost chance
+    var boostChance = 0.005; // 20% chance of triggering boost
+    var isBoosted = false; // Track if boost is active
+canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var star = 0;
+    var stars = [];
+    var FPS = 60;
+    var totalStars = 100;
+    var mouse = { x: 0, y: 0 };
 
-    for (var i = 0; i < x; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: 3,
-        vx: Math.floor(Math.random() * 50) - 25,
-        vy: Math.floor(Math.random() * 50) - 25
-      });
+
+     // Function to gradually add stars
+     function addStar() {
+      star = star + 1;
+      if (star < totalStars) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: 3,
+          vx: Math.floor(Math.random() * 50) - 25,
+          vy: Math.floor(Math.random() * 50) - 25
+        });
+        setTimeout(addStar, 100); // Add a star every 300ms
+      } else {
+      }
+    }
+    function startSpeedBoost() {
+      setInterval(() => {
+        if (Math.random() < boostChance && !isBoosted) {
+          colorChangeSpeed = boostedSpeed;
+          isBoosted = true;
+          setTimeout(() => {
+            colorChangeSpeed = 0.3; // Return to normal speed
+            isBoosted = false;
+          }, boostDuration);
+        }
+      }, boostInterval);
     }
 
     // Draw the scene
-
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       ctx.globalCompositeOperation = "lighter";
 
       for (var i = 0, x = stars.length; i < x; i++) {
         var s = stars[i];
-
         ctx.fillStyle = "#fff";
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
@@ -142,38 +164,19 @@ requestAnimationFrame(clockrun);
           }
         }
       }
+
       // Update line color
-      var colors = generateColors(100); // Generate an array of colors
+      var colors = generateColors(300); // Generate an array of colors
       colorIndex += colorChangeSpeed;
       if (colorIndex >= colors.length) colorIndex = 0; // Loop back to the beginning
       ctx.lineWidth = 2;
+      document.querySelectorAll('.me').forEach(function(el) {
+        el.style.color = colors[Math.floor(colorIndex)];
+      });
       ctx.strokeStyle = colors[Math.floor(colorIndex)];
       ctx.stroke();
     }
-    // Set up audio context and analyzer
-    async function setupAudioAnalyzer() {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const source = audioContext.createMediaStreamSource(stream);
-        const analyzer = audioContext.createAnalyser();
-        analyzer.fftSize = 256;
-        source.connect(analyzer);
 
-        const bufferLength = analyzer.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-
-        function analyzeAudio() {
-          analyzer.getByteFrequencyData(dataArray);
-          let sum = 0;
-          for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
-          const average = sum / bufferLength;
-          
-          colorChangeSpeed = 0.1 + (average / 256) * 0.5; // Adjust speed based on volume
-          requestAnimationFrame(analyzeAudio);
-        }
-        analyzeAudio();
-      }
-      setupAudioAnalyzer();
     function generateColors(count) {
       var colors = [];
       for (var i = 0; i < count; i++) {
@@ -186,53 +189,58 @@ requestAnimationFrame(clockrun);
     function distance(point1, point2) {
       var xs = 0;
       var ys = 0;
-
       xs = point2.x - point1.x;
       xs = xs * xs;
-
       ys = point2.y - point1.y;
       ys = ys * ys;
-
       return Math.sqrt(xs + ys);
     }
 
     // Update star locations
-
     function update() {
       for (var i = 0, x = stars.length; i < x; i++) {
         var s = stars[i];
-
         s.x += s.vx / FPS;
         s.y += s.vy / FPS;
-
         if (s.x < 0 || s.x > canvas.width) s.vx = -s.vx;
         if (s.y < 0 || s.y > canvas.height) s.vy = -s.vy;
       }
     }
 
-    canvas.addEventListener('mousemove', function(e) {
+    canvas.addEventListener('mousemove', function (e) {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     });
 
     // Update and draw
-
     function tick() {
       draw();
       update();
       requestAnimationFrame(tick);
     }
 
+    // Function to start the smooth disappearance
+    function startDisappearance() {
+      disappearing = true;
+      me.style.opacity = 0; // Fade out text
+
+      setTimeout(() => {
+        loginForm.classList.add('shrink'); // Shrink the form smoothly
+      }, 2000); // Delay before shrinking
+    }
+
+
+    tick();
+
+
+    // Start adding stars over time
+    addStar();
+
     // Start the animation loop
     clockrun();
-    function tick() {
-        draw();
-        update();
-        requestAnimationFrame(tick);
-      }
 
-      // Start animation loop
-      tick();
+    startSpeedBoost();
+
   </script>
   </body>
 </html>
