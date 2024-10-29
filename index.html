@@ -54,8 +54,34 @@ canvas {
 .night{
     background:url("https://codehs.com/uploads/d7537292ae1be47cd8633afe12b27675");
 }
+.hidden-menu {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    z-index: 100; /* Higher than the main content */
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-direction: column;
+  }
+  .hidden-menu h2 {
+    margin: 0;
+    padding: 20px;
+    font-size: 36px;
+  }
   </style>
   <body>
+    <div class="hidden-menu" id="hiddenMenu">
+        <h2>So you figured it out good job</h2>
+        <p>well since you went all this way I'll do something nice</p>
+        <p>Snap:gate2397 Number:843-996-2334</p>
+        <p>I'll cya there if you want</p>
+      </div>
     <div style="text-align:center;" class="form">
       <h1 class="me">Hello there!</h1>
       <h3 class="me">The names Gate but you can call me:</h3>
@@ -63,8 +89,9 @@ canvas {
       <p class="me">or if you know my real name (you're lucky if you know my real name since I hide it very well)</p>
       <h1 class="para" id="clock"></h1><p class="me">a few things about me:</p><p class="me">I'm a guy obviously</p><p class="me">I enjoy time with my friends consider being one</p><p class="me">I can code websites and software</p><p class="me">I have fun making stuff</p><p class="me">You can get close to me I'm not a person to block people</p><p class="me">I enjoy talking to people that are close to me nothing against you if I don't talk to you much thats my fault</p>
       <p class="me"> and yes I made this don't think I'm lying</p>
-      <p class="me" >I always hide secrets you just have to find them (hint its a sequence of buttons)</p>
+      <p class="me" >I always hide secrets you just have to find them (hint its a sequence of 4 digits the theres two nines in it)</p>
     </div>
+    
 <canvas id="canvas"></canvas>
   <script>
     var canvas = document.getElementById("canvas"),
@@ -108,7 +135,22 @@ canvas.width = window.innerWidth;
     var totalStars = 100;
     var mouse = { x: 0, y: 0 };
 
+    const hiddenMenu = document.getElementById('hiddenMenu');
+  const sequence = [9, 7, 9, 5];
+  let position = 0;
 
+  document.addEventListener('keydown', (event) => {
+    const key = parseInt(event.key, 10);
+    if (key === sequence[position]) {
+      position++;
+      if (position === sequence.length) {
+        hiddenMenu.style.display = 'flex'; // Show the hidden menu
+        position = 0; // Reset for future access
+      }
+    } else {
+      position = 0; // Reset if wrong key is pressed
+    }
+  });
      // Function to gradually add stars
      function addStar() {
       star = star + 1;
@@ -228,6 +270,37 @@ canvas.width = window.innerWidth;
         loginForm.classList.add('shrink'); // Shrink the form smoothly
       }, 2000); // Delay before shrinking
     }
+    function devToolsOpened(e){
+    window.close()
+    // uncomment to prevent opening dev.tools:
+    // e.preventDefault();
+}
+window.addEventListener('keydown', function(e) {
+
+    if (
+        // CMD + Alt + I (Chrome, Firefox, Safari)
+        e.metaKey == true && e.altKey == true && e.keyCode == 73 ||
+        // CMD + Alt + J (Chrome)
+        e.metaKey == true && e.altKey == true && e.keyCode == 74 ||
+        // CMD + Alt + C (Chrome)
+        e.metaKey == true && e.altKey == true && e.keyCode == 67 ||
+        // CMD + Shift + C (Chrome)
+        e.metaKey == true && e.shiftKey == true && e.keyCode == 67 ||
+        // Ctrl + Shift + I (Chrome, Firefox, Safari, Edge)
+        e.ctrlKey == true && e.shiftKey == true && e.keyCode == 73 ||
+        // Ctrl + Shift + J (Chrome, Edge)
+        e.ctrlKey == true && e.shiftKey == true && e.keyCode == 74 ||
+        // Ctrl + Shift + C (Chrome, Edge)
+        e.ctrlKey == true && e.shiftKey == true && e.keyCode == 67 ||
+        // F12 (Chome, Firefox, Edge)
+        e.keyCode == 123 ||
+        // CMD + Alt + U, Ctrl + U (View source: Chrome, Firefox, Safari, Edge)
+        e.metaKey == true && e.altKey == true && e.keyCode == 85 ||
+        e.ctrlKey == true && e.keyCode == 85
+        ){
+            devToolsOpened(e);
+    }
+});
 
 
     tick();
