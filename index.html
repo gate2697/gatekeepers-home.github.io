@@ -54,22 +54,16 @@ canvas {
 .night{
     background:url("https://codehs.com/uploads/d7537292ae1be47cd8633afe12b27675");
 }
-
   </style>
   <body>
     <div style="text-align:center;" class="form">
-      <h1 class="para">This is my home</h1>
-      <h1 class="para">My time currently is:</h1>
-      <h1 id="clock"></h1>
-      <p class="para">a few things about me</p>
-        <li class="line">I'm a guy</li>
-        <li class="line">I'm 17</li>
-        <li class="line">I know how to code a lot</li>
-        <li class="line">I make games</li>
-      <li class="line">I also make star glitchers</li>
-
-        <p class="para">thats it not much else</p>
-        <p class="para">talk to me and I'll talk </p>
+      <h1 class="para">Hello there!</h1>
+      <h3 class="para">The names Gate but you can call me:</h3>
+      <p class="para">Template, Gatekeeper, or Doctorbroccoli</p>
+      <p class="para">or if you know my real name (you're lucky if you know my real name since I hide it very well)</p>
+      <h1 class="para" id="clock"></h1><p class="para">a few things about me:</p><p class="para">I'm a guy obviously</p><p class="para">I enjoy time with my friends consider being one</p><p class="para">I can code websites and software</p><p class="para">I have fun making stuff</p><p class="para">You can get close to me I'm not a person to block people</p><p class="para">I enjoy talking to people that are close to me nothing against you if I don't talk to you much thats my fault</p>
+      <p class="para"> and yes I made this don't think I'm lying</p>
+      <p class="para">I always hide secrets you just have to find them (hint its a sequence of buttons)</p>
     </div>
 <canvas id="canvas"></canvas>
   <script>
@@ -156,7 +150,30 @@ requestAnimationFrame(clockrun);
       ctx.strokeStyle = colors[Math.floor(colorIndex)];
       ctx.stroke();
     }
+    // Set up audio context and analyzer
+    async function setupAudioAnalyzer() {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const source = audioContext.createMediaStreamSource(stream);
+        const analyzer = audioContext.createAnalyser();
+        analyzer.fftSize = 256;
+        source.connect(analyzer);
 
+        const bufferLength = analyzer.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        function analyzeAudio() {
+          analyzer.getByteFrequencyData(dataArray);
+          let sum = 0;
+          for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
+          const average = sum / bufferLength;
+          
+          colorChangeSpeed = 0.1 + (average / 256) * 0.5; // Adjust speed based on volume
+          requestAnimationFrame(analyzeAudio);
+        }
+        analyzeAudio();
+      }
+      setupAudioAnalyzer();
     function generateColors(count) {
       var colors = [];
       for (var i = 0; i < count; i++) {
@@ -208,7 +225,14 @@ requestAnimationFrame(clockrun);
 
     // Start the animation loop
     clockrun();
-    tick();
+    function tick() {
+        draw();
+        update();
+        requestAnimationFrame(tick);
+      }
+
+      // Start animation loop
+      tick();
   </script>
   </body>
 </html>
