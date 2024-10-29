@@ -100,13 +100,13 @@ canvas {
         <h2>So you figured it out good job</h2>
         <p>well since you went all this way I'll do something nice</p>
         <p>message me if you want a school proxy bypass I have loads</p>
-        <h1>Code Generator</h1>
-    <button id="generateBtn">Generate Code</button>
-    <p id="generatedCode"></p>
-
-    <h2>Validate Code</h2>
-    <input type="text" id="codeInput" placeholder="Enter code to validate" />
-    <button id="validateBtn">Validate Code</button>
+        <h1>Generate a 64-Digit Code</h1>
+    <button id="generateCodeBtn">Generate Code</button>
+    <p id="codeDisplay"></p>
+    
+    <h2>Validate a Code</h2>
+    <input type="text" id="codeInput" placeholder="Enter code to validate">
+    <button id="validateCodeBtn">Validate Code</button>
     <p id="validationResult"></p>
       </div>
       <div style="text-align:center;" class="form2" id="form2">
@@ -361,29 +361,24 @@ const contactButton = document.getElementById('contactButton');
 
   </script>
    <script>
-    document.getElementById('generateBtn').onclick = async () => {
-        const response = await fetch('/generate-code', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+    document.getElementById('generateCodeBtn').addEventListener('click', async () => {
+        const response = await fetch('/generate-code');
         const data = await response.json();
-        document.getElementById('generatedCode').innerText = `Generated Code: ${data.code}`;
-    };
+        document.getElementById('codeDisplay').textContent = data.code;
+    });
 
-    document.getElementById('validateBtn').onclick = async () => {
+    document.getElementById('validateCodeBtn').addEventListener('click', async () => {
         const code = document.getElementById('codeInput').value;
         const response = await fetch('/validate-code', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({ code })
         });
         const data = await response.json();
-        document.getElementById('validationResult').innerText = data.valid ? 'Valid Code!' : 'Invalid Code.';
-    };
+        document.getElementById('validationResult').textContent = data.message;
+    });
 </script>
   </body>
 </html>
