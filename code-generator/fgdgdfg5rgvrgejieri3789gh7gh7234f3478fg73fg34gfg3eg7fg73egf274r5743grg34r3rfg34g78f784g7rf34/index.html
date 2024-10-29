@@ -9,7 +9,7 @@ body {
 }
 canvas {
   background: #232323;
-  filter: blur(0.1px);
+  filter: blur(1px);
 }
 .form{
     width:50vw;
@@ -99,7 +99,15 @@ canvas {
     <div class="hidden-menu" id="hiddenMenu">
         <h2>So you figured it out good job</h2>
         <p>well since you went all this way I'll do something nice</p>
-        <p>I'll cya there if you want</p>
+        <p>message me if you want a school proxy bypass I have loads</p>
+        <h1>Code Generator</h1>
+    <button id="generateBtn">Generate Code</button>
+    <p id="generatedCode"></p>
+
+    <h2>Validate Code</h2>
+    <input type="text" id="codeInput" placeholder="Enter code to validate" />
+    <button id="validateBtn">Validate Code</button>
+    <p id="validationResult"></p>
       </div>
       <div style="text-align:center;" class="form2" id="form2">
         <h1 class="me">you can contact me here:</h1>
@@ -156,7 +164,7 @@ canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     var star = 0;
     var stars = [];
-    var FPS = 60;
+    var FPS = 90;
     var totalStars = 100;
     var mouse = { x: 0, y: 0 };
 
@@ -352,5 +360,30 @@ const contactButton = document.getElementById('contactButton');
     startSpeedBoost();
 
   </script>
+   <script>
+    document.getElementById('generateBtn').onclick = async () => {
+        const response = await fetch('/generate-code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        document.getElementById('generatedCode').innerText = `Generated Code: ${data.code}`;
+    };
+
+    document.getElementById('validateBtn').onclick = async () => {
+        const code = document.getElementById('codeInput').value;
+        const response = await fetch('/validate-code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ code })
+        });
+        const data = await response.json();
+        document.getElementById('validationResult').innerText = data.valid ? 'Valid Code!' : 'Invalid Code.';
+    };
+</script>
   </body>
 </html>
