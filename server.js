@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 
 // Endpoint to generate a 64-digit code
 app.get('/generate-code', (req, res) => {
-    const code = crypto.randomBytes(64).toString('hex'); // 64 hex digits = 32 bytes
+    const code = crypto.randomBytes(256).toString('hex'); // 64 hex digits = 32 bytes
     generatedCodes.add(code); // Store the generated code
     res.json({ code }); // Return the generated code as JSON
 });
