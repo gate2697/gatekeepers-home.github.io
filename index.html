@@ -74,13 +74,35 @@ canvas {
     padding: 20px;
     font-size: 36px;
   }
+  .form2{
+    width:50vw;
+    height:75vh;
+    background-color:white;
+    z-index:10;
+    position:absolute;
+    top:10%;
+    left:25%;
+    border-radius:10px;
+    z-index:90;
+    display: none;
+}
+.contact-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
   </style>
   <body>
     <div class="hidden-menu" id="hiddenMenu">
         <h2>So you figured it out good job</h2>
         <p>well since you went all this way I'll do something nice</p>
-        <p>Snap:gate2397 Number:843-996-2334</p>
         <p>I'll cya there if you want</p>
+      </div>
+      <div style="text-align:center;" class="form2" id="form2">
+        <h1 class="me">you can contact me here:</h1>
+        <p class="me">Snap:gate2397</p>
+        <p class="me">Number:843-996-2334</p>
       </div>
     <div style="text-align:center;" class="form">
       <h1 class="me">Hello there!</h1>
@@ -90,6 +112,7 @@ canvas {
       <h1 class="para" id="clock"></h1><p class="me">a few things about me:</p><p class="me">I'm a guy obviously</p><p class="me">I enjoy time with my friends consider being one</p><p class="me">I can code websites and software</p><p class="me">I have fun making stuff</p><p class="me">You can get close to me I'm not a person to block people</p><p class="me">I enjoy talking to people that are close to me nothing against you if I don't talk to you much thats my fault</p>
       <p class="me"> and yes I made this don't think I'm lying</p>
       <p class="me" >I always hide secrets you just have to find them (hint its a sequence of 4 digits the theres two nines in it)</p>
+      <button class="contact-button" id="contactButton">Contacts</button>
     </div>
     
 <canvas id="canvas"></canvas>
@@ -301,7 +324,19 @@ window.addEventListener('keydown', function(e) {
             devToolsOpened(e);
     }
 });
+const contactButton = document.getElementById('contactButton');
+    const form2 = document.getElementById('form2');
+    
+    contactButton.addEventListener('click', () => {
+      form2.style.display = 'block'; // Show the form
+    });
 
+    // Hide form2 when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!form2.contains(event.target) && event.target !== contactButton) {
+        form2.style.display = 'none'; // Hide the form if clicking outside
+      }
+    });
 
     tick();
 
