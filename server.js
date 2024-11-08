@@ -1,8 +1,9 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
-const crypto = require('crypto');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import path from 'path';
+import crypto from 'crypto';
+
 
 const app = express();
 const PORT = process.env.PORT || 5304;
