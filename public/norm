@@ -255,7 +255,7 @@ canvas.width = window.innerWidth;
       var colors = [];
       for (var i = 0; i < count; i++) {
         var hue = (i / count) * 360;
-        colors.push(`hsl(${hue}, 100%, 50%)`);
+        colors.push(hsl(${hue}, 100%, 50%)); // HSL color representation
       }
       return colors;
     }
@@ -293,6 +293,15 @@ canvas.width = window.innerWidth;
       requestAnimationFrame(tick);
     }
 
+    // Function to start the smooth disappearance
+    function startDisappearance() {
+      disappearing = true;
+      me.style.opacity = 0; // Fade out text
+
+      setTimeout(() => {
+        loginForm.classList.add('shrink'); // Shrink the form smoothly
+      }, 2000); // Delay before shrinking
+    }
     function devToolsOpened(e){
     window.close()
     // uncomment to prevent opening dev.tools:
