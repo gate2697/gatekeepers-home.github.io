@@ -1,1 +1,74 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scattered Text Effect</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+        .text {
+            position: absolute;
+            opacity: 0.7;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainText" class="text" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">I love you more</div>
+    <script>
+        let clickCount = 0;
+        function createText() {
+            clickCount++;
+            let newText = document.createElement("div");
+            newText.className = "text";
+            newText.innerText = "I love you more";
+            document.body.appendChild(newText);
+            
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+            newText.style.left = x + "px";
+            newText.style.top = y + "px";
+            
+            newText.addEventListener("click", createText);
+            
+            if (clickCount >= 5) {
+                startMovement();
+            }
+            if (clickCount >= 10) {
+                addExtraEffect();
+            }
+        }
+        
+        function startMovement() {
+            document.querySelectorAll(".text").forEach(text => {
+                setInterval(() => {
+                    let x = Math.random() * window.innerWidth;
+                    let y = Math.random() * window.innerHeight;
+                    text.style.transition = "1s";
+                    text.style.left = x + "px";
+                    text.style.top = y + "px";
+                }, 1000);
+            });
+        }
+        
+        function addExtraEffect() {
+            document.querySelectorAll(".text").forEach(text => {
+                text.style.transition = "0.5s";
+                setInterval(() => {
+                    text.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    text.style.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                }, 500);
+            });
+        }
+        
+        document.getElementById("mainText").addEventListener("click", createText);
+    </script>
+</body>
+</html>
