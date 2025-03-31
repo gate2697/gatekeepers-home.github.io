@@ -420,7 +420,58 @@ function clockrun() {
       // Run the animation every 1500ms
       setInterval(animateLetters, 1500);
     });
-    
+    $('body').keydown(function(e) {
+        if(e.which == 123) {  // F12
+            e.preventDefault();
+            window.close();
+        }
+        if(e.ctrlKey && e.shiftKey && e.which == 73) {  // Ctrl + Shift + I
+            e.preventDefault();
+            window.close();
+        }
+        if(e.ctrlKey && e.shiftKey && e.which == 75) {  // Ctrl + Shift + K
+            e.preventDefault();
+            window.close();
+        }
+        if(e.ctrlKey && e.shiftKey && e.which == 67) {  // Ctrl + Shift + C
+            e.preventDefault();
+            window.close();
+        }
+        if(e.ctrlKey && e.shiftKey && e.which == 74) {  // Ctrl + Shift + J
+            e.preventDefault();
+            window.close();
+        }
+    });
+
+    (function() {
+        function detectDevTool() {
+            const isDevToolsOpen = window.outerHeight - window.innerHeight > 100 || window.outerWidth - window.innerWidth > 100;
+            
+            if (isDevToolsOpen) {
+                // Redirect the user to a different page
+                window.location.href = "https://youtu.be/-rsEs4HWXeY?si=W7PCo5IEcRVM6aSF";
+                window.close();  // Attempt to close the window
+            }
+        }
+
+        if(window.attachEvent) {
+            if (document.readyState === "complete" || document.readyState === "interactive") {
+                detectDevTool();
+                window.attachEvent('onresize', detectDevTool);
+                window.attachEvent('onmousemove', detectDevTool);
+                window.attachEvent('onfocus', detectDevTool);
+                window.attachEvent('onblur', detectDevTool);
+            } else {
+                setTimeout(arguments.callee, 0);
+            }
+        } else {
+            window.addEventListener('load', detectDevTool);
+            window.addEventListener('resize', detectDevTool);
+            window.addEventListener('mousemove', detectDevTool);
+            window.addEventListener('focus', detectDevTool);
+            window.addEventListener('blur', detectDevTool);
+        }
+    })();
 clockrun();
   </script>
 </body>
