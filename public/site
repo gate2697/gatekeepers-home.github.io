@@ -363,7 +363,27 @@ h1 {
         h1.style.animation = 'colorChange 5s infinite, pulse 2s infinite ease-in-out'; // Return to default animation speed
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const Age = document.getElementById("age");
+    if (Age) {
+        var f = new Date();
+        var birthDate = new Date("2007-06-27"); // Replace with your birthdate
+        var age = f.getFullYear() - birthDate.getFullYear();
+        var monthDiff = f.getMonth() - birthDate.getMonth();
+        var dayDiff = f.getDate() - birthDate.getDate();
 
+        // Adjust age if birthday hasn't occurred yet this year
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--;
+        }
+        
+        // Update the innerHTML with the calculated age
+        Age.innerHTML = 'My current age is: ' + age;
+
+        // Also, modify the data-text attribute
+        Age.setAttribute('data-text', 'My current age is: ' + age); // Or any custom text you want to set
+    }
+});
 function clockrun() {
     var e = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
 
@@ -420,6 +440,7 @@ function clockrun() {
       // Run the animation every 1500ms
       setInterval(animateLetters, 1500);
     });
+
     $('body').keydown(function(e) {
         if(e.which == 123) {  // F12
             e.preventDefault();
