@@ -7,7 +7,7 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gatekeeper's website home</title>
+  <title>Gate's homepage</title>
   
   <style>
     @import url('https://fonts.cdnfonts.com/css/ds-digital');
@@ -325,7 +325,7 @@ h1 {
     <div class="divider"></div>
     <p class="caesar-dressing-regular">I had a bit too much fun making this</p>
   </div>
-  <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
     const Age = document.getElementById("age");
     if (Age) {
