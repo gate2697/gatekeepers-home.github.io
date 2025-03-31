@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caesar+Dressing&family=Faster+One&family=Germania+One&family=Lacquer&family=Mr+Dafoe&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=Tektur:wght@655&family=Warnes&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stylish Webpage with Enhanced Glitch</title>
+  
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/ds-digital');
+    .tektur-blue {
+  font-family: "Tektur", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 655;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+.press-start-2p-regular {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.faster-one-regular {
+  font-family: "Faster One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.lacquer-regular {
+  font-family: "Lacquer", system-ui;
+  font-weight: 600;
+  font-style: normal;
+}
+.germania-one-regular {
+  font-family: "Germania One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.silkscreen-regular {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.silkscreen-bold {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+.mr-dafoe-regular {
+  font-family: "Mr Dafoe", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.caesar-dressing-regular {
+  font-family: "Caesar Dressing", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      text-align: center;
+      padding: 20px;
+      background: rgba(82, 80, 80, 0.1);
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .divider {
+      width: 80%;
+      height: 2px;
+      background: white;
+      animation: Divcolor 2s infinite linear;
+      -webkit-animation: Divcolor 2s infinite linear;
+      margin: 30px auto;
+      opacity: 0.5;
+    }
+    @keyframes Divcolor {
+  0% { background: rgb(255, 0, 0); }
+  50% { background: rgb(0, 195, 255); }
+  100% { background: rgb(255, 0, 0); }
+}
+    .para, .line {
+  animation: hueShift 2s infinite linear;
+  -webkit-animation: hueShift 2s infinite linear;
+  background: linear-gradient(to right, red, yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+@keyframes hueShift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+#clock {
+    font-family:'DS-Digital';
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size:75px;
+}
+    h3 {
+        font-family: "Press Start 2P";
+      font-size: 2em;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff, #ff0080);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: colorShift 5s infinite linear;
+    }
+    @keyframes colorShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    h4 {
+      font-size: 2em;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+      position: relative;
+      letter-spacing: 2px;
+      animation: neonGlow 6s ease-in-out infinite alternate;
+    }
+    @keyframes neonGlow {
+      0% {
+        text-shadow: 0 0 2px #ff00ff, 0 0 4px #ff00ff, 0 0 6px #ff00ff;
+        color: #ff00ff;
+      }
+      25% {
+        text-shadow: 0 0 2px #00ff00, 0 0 4px #00ff00, 0 0 6px #00ff00;
+        color: #00ff00;
+      }
+      50% {
+        text-shadow: 0 0 2px #00ffff, 0 0 4px #00ffff, 0 0 6px #00ffff;
+        color: #00ffff;
+      }
+      75% {
+        text-shadow: 0 0 2px #ff0000, 0 0 4px #ff0000, 0 0 6px #ff0000;
+        color: #ff0000;
+      }
+      100% {
+        text-shadow: 0 0 2px #ffff00, 0 0 4px #ffff00, 0 0 6px #ffff00;
+        color: #ffff00;
+      }
+    }
+    /* --- NEW h5 Style --- */
+    h5 {
+      font-size: 1.8em;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff4b4b, #ff9b4b, #ffcc4b, #ff4b4b);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 3s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0%; }
+      50% { background-position: 100%; }
+      100% { background-position: 0%; }
+    }
+    /* --- UPDATED h6 Style with Enhanced Glitch & Border --- */
+    /* IMPORTANT: Use data-text attribute matching the content */
+    h6 {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  color: transparent; /* Hide original text */
+  padding: 5px;
+}
+
+h6::before,
+h6::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+h6::before {
+  color: #00ffcc;
+  z-index: 1;
+  animation: glitchBefore 1s infinite linear alternate-reverse;
+}
+
+h6::after {
+  color: #ff00ff;
+  z-index: 2;
+  animation: glitchAfter 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitchBefore {
+  0%   { transform: translate(0,0) rotate(0deg);text-shadow: 0 0 10px #00ffcc; opacity: 1; }
+  10%  { transform: translate(-2px, 2px) rotate(-2deg);text-shadow: 0 0 10px #00ffcc; opacity: 0.8; }
+  20%  { transform: translate(2px, -2px) rotate(2deg);text-shadow: 0 0 10px #00ffcc; opacity: 0.9; }
+  30%  { transform: translate(-3px, 1px) rotate(-3deg);text-shadow: 0 0 10px #00ffcc; opacity: 0.7; }
+  40%  { transform: translate(1px, -3px) rotate(3deg);text-shadow: 0 0 10px #00ffcc; opacity: 0.8; }
+  50%  { transform: translate(-1px, 2px) rotate(-1deg);text-shadow: 0 0 10px #00ffcc; opacity: 1; }
+  60%  { transform: translate(2px, -2px) rotate(2deg);text-shadow: 0 0 10px #00ffcc; opacity: 0.9; }
+  70%  { transform: translate(-2px, 1px) rotate(-2deg);text-shadow: 0 0 10px #00ffcc; opacity: 1; }
+  80%  { transform: translate(1px, -1px) rotate(1deg);text-shadow: 0 0 10px #00ffcc; opacity: 0.8; }
+  90%  { transform: translate(-1px, 1px) rotate(-1deg);text-shadow: 0 0 10px #00ffcc; opacity: 1; }
+  100% { transform: translate(0,0) rotate(0deg);text-shadow: 0 0 10px #00ffcc; opacity: 1; }
+}
+
+@keyframes glitchAfter {
+  0%   { transform: translate(0,0) rotate(0deg); opacity: 1; }
+  10%  { transform: translate(2px, -2px) rotate(2deg);text-shadow: 0 0 10px #ff00ff; opacity: 0.8; }
+  20%  { transform: translate(-2px, 2px) rotate(-2deg);text-shadow: 0 0 10px #ff00ff; opacity: 0.9; }
+  30%  { transform: translate(3px, -1px) rotate(3deg);text-shadow: 0 0 10px #ff00ff; opacity: 0.7; }
+  40%  { transform: translate(-1px, 3px) rotate(-3deg);text-shadow: 0 0 10px #ff00ff; opacity: 0.8; }
+  50%  { transform: translate(1px, -2px) rotate(1deg);text-shadow: 0 0 10px #ff00ff; opacity: 1; }
+  60%  { transform: translate(-2px, 2px) rotate(-2deg);text-shadow: 0 0 10px #ff00ff; opacity: 0.9; }
+  70%  { transform: translate(2px, -1px) rotate(2deg);text-shadow: 0 0 10px #ff00ff; opacity: 1; }
+  80%  { transform: translate(-1px, 1px) rotate(-1deg);text-shadow: 0 0 10px #ff00ff; opacity: 0.8; }
+  90%  { transform: translate(1px, -1px) rotate(1deg);text-shadow: 0 0 10px #ff00ff; opacity: 1; }
+  100% { transform: translate(0,0) rotate(0deg);text-shadow: 0 0 10px #ff00ff; opacity: 1; }
+}
+
+    h7 {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: white;
+      position: relative;
+      display: inline-block;
+      animation: colorEffect 4s ease-in-out infinite;
+    }
+    .letter {
+      display: inline-block;
+      transition: transform 1.5s linear, color 1.5s linear;
+    }
+    p {
+  font-size: 1.1em;
+  line-height: 1.8;
+  background: linear-gradient(45deg, #00ffcc, #ff00ff, #ffff00);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: textPulse 4s ease infinite;
+}
+
+@keyframes textPulse {
+  0% {
+    background-position: 0% center;
+    text-shadow: 0 0 5px rgba(0, 255, 204, 0.8);
+  }
+  50% {
+    background-position: 100% center;
+    text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+  }
+  100% {
+    background-position: 0% center;
+    text-shadow: 0 0 5px rgba(255, 255, 0, 0.8);
+  }
+}
+@keyframes colorChange {
+    0% { color: #ff007f; text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 30px #ff007f; }
+    25% { color: #ff9900; text-shadow: 0 0 10px #ff9900, 0 0 20px #ff9900, 0 0 30px #ff9900; }
+    50% { color: #33cc33; text-shadow: 0 0 10px #33cc33, 0 0 20px #33cc33, 0 0 30px #33cc33; }
+    75% { color: #3399ff; text-shadow: 0 0 10px #3399ff, 0 0 20px #3399ff, 0 0 30px #3399ff; }
+    100% { color: #ff007f; text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 30px #ff007f; }
+}
+
+h1 {
+    
+    font-size: 60px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    animation: colorChange 5s infinite, pulse 2s infinite ease-in-out;
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+    /* (h7 animation code unchanged) */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="tektur-blue" id="H1">Hello my name is Gate well thats what you might know me as</h1>
+    <div class="divider"></div>
+    <h3 class="faster-one-regular">The names Nick it's nice to meet you</h3>
+    <div class="divider"></div>
+    <h4 class="lacquer-regular">As you can probably tell I code websites, games, and software</h4>
+    <div class="divider"></div>
+    <h5 class="germania-one-regular">A few things about me:</h5>
+    <h5 class="germania-one-regular">I'm a guy</h5>
+        <h5 class="germania-one-regular">I'm deeply passionate about coding and love using my skills to bring ideas to life. Whether it's building something from scratch or helping friends with their projects, I always enjoy finding creative solutions.</h5>
+        <h5 class="germania-one-regular">When I’m not coding or learning new things, I enjoy spending time with friends, whether it’s hanging out or collaborating on cool projects.</h5>
+        <h5 class="germania-one-regular">I’m an avid gamer, and my dream is to one day create my own game</h5>
+    <div class="divider"></div>
+    <!-- For h6, note the data-text attribute -->
+    <h6 data-text="Glitch Effect" class="silkscreen-bold" id="age">Glitch Effect</h6>
+    <div class="divider"></div>
+    <h7 id="animated-h7" class="mr-dafoe-regular">I love you Seth</h7>
+    <div class="divider"></div>
+    <h8 class="para" id="clock">Time</h8>
+    <div class="divider"></div>
+    <p class="caesar-dressing-regular">I had a bit too much fun making this</p>
+  </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const Age = document.getElementById("age");
+    if (Age) {
+        var f = new Date();
+        var birthDate = new Date("2007-06-27"); // Replace with your birthdate
+        var age = f.getFullYear() - birthDate.getFullYear();
+        var monthDiff = f.getMonth() - birthDate.getMonth();
+        var dayDiff = f.getDate() - birthDate.getDate();
+
+        // Adjust age if birthday hasn't occurred yet this year
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--;
+        }
+        
+        // Update the innerHTML with the calculated age
+        Age.innerHTML = 'My current age is: ' + age;
+
+        // Also, modify the data-text attribute
+        Age.setAttribute('data-text', 'My current age is: ' + age); // Or any custom text you want to set
+    }
+});
+
+</script>
+  <script>
+    var clock = document.getElementById("clock");
+    document.addEventListener('DOMContentLoaded', function() {
+    const h1 = document.getElementById('H1');
+    
+    // Optional: Add some interaction to make it even more dynamic
+    h1.addEventListener('mouseover', function() {
+        h1.style.animation = 'colorChange 3s infinite, pulse 2s infinite ease-in-out';  // Speed up on hover
+    });
+
+    h1.addEventListener('mouseout', function() {
+        h1.style.animation = 'colorChange 5s infinite, pulse 2s infinite ease-in-out'; // Return to default animation speed
+    });
+});
+
+function clockrun() {
+    var e = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+
+    var secondsclock = e.getSeconds() < 10 ? "0" + e.getSeconds() : e.getSeconds();
+    var Minutesclock = e.getMinutes() < 10 ? "0" + e.getMinutes() : e.getMinutes();
+    var Hoursclock = e.getHours() === 0 ? 12 : e.getHours() > 12 ? e.getHours() - 12 : e.getHours();
+    var amorpm = e.getHours() >= 12 ? "pm" : "am";
+    
+    // Display clock with leading zeroes
+    clock.innerHTML = Hoursclock + ":" + Minutesclock + ":" + secondsclock + "    " + amorpm;
+    
+    // Apply night/day styles based on time
+    if (amorpm === "pm") {
+        clock.classList.add("night");
+        clock.classList.remove("day");
+    } else {
+        clock.classList.add("day");
+        clock.classList.remove("night");
+    }
+
+    // Continue running the clock every frame
+    requestAnimationFrame(clockrun);
+}
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const h7 = document.getElementById("animated-h7");
+      const text = h7.textContent;
+      h7.textContent = "";
+      
+      // Wrap each character in a span
+      for (let char of text) {
+        const span = document.createElement("span");
+        span.classList.add("letter");
+        span.textContent = char;
+        h7.appendChild(span);
+      }
+      
+      // Function to update each letter's position and color smoothly
+      function animateLetters() {
+        const letters = document.querySelectorAll(".letter");
+        letters.forEach(letter => {
+          // Random offset within ±3px for a subtle movement
+          const offsetX = (Math.random() * 6 - 3).toFixed(2);
+          const offsetY = (Math.random() * 6 - 3).toFixed(2);
+          // Random scaling factor between 0.95 and 1.05
+          const scale = (1 + (Math.random() * 0.1 - 0.05)).toFixed(2);
+          letter.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+          // Apply a random hue-based color
+          const hue = Math.floor(Math.random() * 360);
+          letter.style.color = `hsl(${hue}, 80%, 60%)`;
+        });
+      }
+      
+      // Run the animation every 1500ms
+      setInterval(animateLetters, 1500);
+    });
+    
+clockrun();
+  </script>
+</body>
+</html>
