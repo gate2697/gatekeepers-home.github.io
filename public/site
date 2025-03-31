@@ -304,7 +304,7 @@ h1 {
 </head>
 <body>
   <div class="container">
-    <h1 class="tektur-blue" id="H1">Hello my name is Gate well thats what you might know me as</h1>
+    <h1 class="tektur-blue" id="H1">Hello my name is Gate, Template, doctorbroccoli well thats what you might know me as</h1>
     <div class="divider"></div>
     <h3 class="faster-one-regular">The names Nick it's nice to meet you</h3>
     <div class="divider"></div>
