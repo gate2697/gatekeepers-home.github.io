@@ -330,12 +330,10 @@ h1 {
     const Age = document.getElementById("age");
     if (Age) {
         var f = new Date();
-        var birthDate = new Date("2007-06-27"); // Replace with your birthdate
+        var birthDate = new Date("2007-06-27");
         var age = f.getFullYear() - birthDate.getFullYear();
         var monthDiff = f.getMonth() - birthDate.getMonth();
         var dayDiff = f.getDate() - birthDate.getDate();
-
-        // Adjust age if birthday hasn't occurred yet this year
         if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
             age--;
         }
@@ -344,7 +342,7 @@ h1 {
         Age.innerHTML = 'My current age is: ' + age;
 
         // Also, modify the data-text attribute
-        Age.setAttribute('data-text', 'My current age is: ' + age); // Or any custom text you want to set
+        Age.setAttribute('data-text', 'My current age is: ' + age);
     }
 });
 
@@ -372,10 +370,10 @@ function clockrun() {
     var Hoursclock = e.getHours() === 0 ? 12 : e.getHours() > 12 ? e.getHours() - 12 : e.getHours();
     var amorpm = e.getHours() >= 12 ? "pm" : "am";
     
-    // Display clock with leading zeroes
+    
     clock.innerHTML = Hoursclock + ":" + Minutesclock + ":" + secondsclock + "    " + amorpm;
     
-    // Apply night/day styles based on time
+    
     if (amorpm === "pm") {
         clock.classList.add("night");
         clock.classList.remove("day");
@@ -384,7 +382,7 @@ function clockrun() {
         clock.classList.remove("night");
     }
 
-    // Continue running the clock every frame
+    
     requestAnimationFrame(clockrun);
 }
 
@@ -393,15 +391,14 @@ function clockrun() {
       const text = h7.textContent;
       h7.textContent = "";
       
-      // Wrap each character in a span
+      
       for (let char of text) {
         const span = document.createElement("span");
         span.classList.add("letter");
         span.textContent = char;
         h7.appendChild(span);
       }
-      
-      // Function to update each letter's position and color smoothly
+
       function animateLetters() {
         const letters = document.querySelectorAll(".letter");
         letters.forEach(letter => {
@@ -417,7 +414,6 @@ function clockrun() {
         });
       }
       
-      // Run the animation every 1500ms
       setInterval(animateLetters, 1500);
     });
     
