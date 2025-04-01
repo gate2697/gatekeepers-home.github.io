@@ -386,7 +386,6 @@ function clockrun() {
     requestAnimationFrame(clockrun);
 }
 
-    document.addEventListener("DOMContentLoaded", function () {
       const h7 = document.getElementById("animated-h7");
       const text = h7.textContent;
       h7.textContent = "";
@@ -412,10 +411,10 @@ function clockrun() {
           const hue = Math.floor(Math.random() * 360);
           letter.style.color = `hsl(${hue}, 80%, 60%)`;
         });
+        setInterval(animateLetters, 1500);
       }
       
-      setInterval(animateLetters, 1500);
-    });
+      animateLetters();
     
 clockrun();
   </script>
