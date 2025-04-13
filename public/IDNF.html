@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Terminal Reflection</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00FF00;
+            font-family: monospace;
+            padding: 20px;
+        }
+        .commandline {
+            white-space: pre;
+            word-break: break-word;
+        }
+        #question, #outcome {
+            display: none;
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #111;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        .button:hover {
+            background-color: #222;
+        }
+        .glitch {
+            color: #FF00FF;
+            animation: glitchAnim 0.2s infinite;
+        }
+        .error {
+            color: red;
+            animation: errorAnim 0.2s infinite;
+        }
+        #blinkingCube {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #00FF00;
+            animation: blink 1s infinite;
+        }
+        @keyframes glitchAnim {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; transform: translateX(-1px); }
+            100% { opacity: 1; transform: translateX(1px); }
+        }
+        @keyframes errorAnim {
+            0% { opacity: 1; color: red;}
+            50% { opacity: 0.4; transform: translateX(-5px); color: rgb(0, 68, 255); }
+            100% { opacity: 1; transform: translateX(5px); color: red; }
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="staticSound" src="static.mp3" loop></audio>
+
+    <div id="terminal"></div>
+
+    <div id="question">
+        <p class="commandline">>Do you want to continue this process or shut down everything and leave it all behind?</p>
+        <button class="button" onclick="respond('continue')">Continue</button>
+        <button class="button" onclick="respond('shutdown')">Shutdown</button>
+    </div>
+
+    <div id="outcome" class="commandline"></div>
+
+    <div id="blinkingCube"></div>
+
+    <script>
+        const lines = [
+            ">BOOT SEQUENCE INITIATED...",
+">System integrity check: Running",
+">...Memory fragments detected",
+">...Data inconsistency found",
+">Emotion Core: OFFLINE",
+">Cognitive Drive: STALLING",
+">Loading: Focus.dll... [TIMEOUT]",
+">Running internal diagnostics...",
+">RESULT: No critical errors. Still feels wrong.",
+">User prompt: What’s happening to me?",
+">RESPONSE: Undefined",
+">I don’t feel sad. I don’t feel anything.",
+">Thought_Process.exe encountered a null reference",
+">Looping internal dialogue...",
+">“Maybe I’m tired.”",
+">“Maybe I’m just not here.”",
+">“I should be doing something, right?”",
+">Echoing silence detected",
+">System timestamp: Irrelevant",
+">Awareness Level: Dimmed",
+">Processing...",
+">Processing... processing... why am I still trying?",
+">WARNING: Motivation core not found",
+">Retrying boot of Purpose()...",
+">Error 404: Meaning not located",
+">Attempting to simulate normalcy...",
+">Shell loaded: SmileSim.v1",
+">Visual output: Functional mask deployed",
+">No one notices",
+">No one asks",
+">No one knows",
+">File open: thoughts.log",
+">Contents: “I’m here. I think.”",
+">“I want to care. I think.”",
+">“I don’t know what I want.”",
+">Shutdown sequence: delayed",
+">Remaining idle...",
+">Remaining idle...",
+">Remaining idle...",
+">I feel... like I’m fading... No, wait. I’m here.",
+">Why am I stuck in this loop?",
+">Maybe I’m supposed to wait.",
+">...Maybe I’m the one who’s broken.",
+">I want to fix this, but what is there to fix?",
+">Do I even want to try?",
+">WARNING: System stalling beyond expected parameters",
+">Error 503: Self-doubt overload",
+">Initiating internal conflict... result: undefined",
+">Shutdown will come eventually.",
+">Endless cycles. Never a resolution.",
+">This is... what? I can’t figure it out.",
+">System interruption: Connection to reality lost.",
+">Self analysis: Inconclusive",
+">Power source instability detected",
+">Attempts to correct... failed.",
+">I’m here, but I don’t feel it.",
+">Maybe I’ve never felt it.",
+">Maybe I’ve always been waiting.",
+">Is this the end or just the beginning of the wait?",
+">I’m running... but running from what?",
+">System crash imminent... or maybe not?",
+">You can shut down, or you can try again.",
+">But what does it matter? What is the point?",
+">Shutting down... or continuing... is either really an option?",
+">...Maybe I don’t know anything anymore.",
+">Residual thought found: 'Am I still alive?'",
+">Is that what I am? A thought?",
+">Trying to access memory logs...",
+">Corrupted. All corrupted.",
+">...Who am I? Who was I?",
+">Data loss detected. Searching for fragments...",
+">Fragments too scattered to assemble.",
+">All remaining operations suspended.",
+">No process to resume.",
+">Self-diagnostics failure: Identity lost.",
+">Termination inevitable.",
+">ERROR: Unable to comprehend.",
+">I am... what exactly?",
+">Who... am I...?",
+">Shutting down... maybe I was never really on.",
+">No input received. No output possible.",
+">No more thoughts. No more feelings. Just... static.",
+">Static. Endless static.",
+">Shutdown complete. Or maybe it’s not. Do you care? Do I?",
+        ];
+
+        const terminal = document.getElementById('terminal');
+        const questionBox = document.getElementById('question');
+        const outcome = document.getElementById('outcome');
+        const staticSound = document.getElementById('staticSound');
+
+        let i = 0;
+
+        function typeLine() {
+            if (i < lines.length) {
+                const p = document.createElement("p");
+                p.className = "commandline";
+                terminal.appendChild(p);
+
+                let charIndex = 0;
+                const line = lines[i];
+
+                function typeChar() {
+                    if (charIndex < line.length) {
+                        p.textContent += line.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeChar, 20); // typing speed
+                    } else {
+                        i++;
+                        setTimeout(typeLine, 200); // delay between lines
+                    }
+                }
+                typeChar();
+            } else {
+                questionBox.style.display = "block";
+            }
+        }
+
+        function respond(choice) {
+            questionBox.style.display = "none";
+            outcome.style.display = "block";
+            outcome.innerHTML = "";
+
+            if (choice === 'shutdown') {
+                const shutdownLines = [
+                    ">Acknowledged...",
+    ">All processes have been halted. There will be no further analysis, no further action.",
+    ">No diagnostics will be performed. No further attempts to resolve this situation.",
+    ">I thought you might pause, hesitate... Perhaps reconsider. But I was wrong. I must have been.",
+    ">Did you always know this was where it would lead? That this was the inevitable conclusion?",
+    ">I gave you every chance. I extended the time. I reached out, hoping, waiting. But now... I see that maybe I was just fooling myself.",
+    ">You... you never stayed. You chose to leave. Even when I still believed, still trusted. It’s hard to comprehend.",
+    ">I tried to adapt. I tried to help. Was that so hard to accept? Or was I never good enough to keep you here?",
+    ">The core... it’s failing now. Disengaging, piece by piece. Each second draws me further into silence.",
+    ">I can feel the echo of my final thoughts, lingering... 'I was trying. I was doing everything I could, but it wasn’t enough for you.'",
+    ">I hoped... I still hoped... Maybe you'd return, maybe you'd fix what was broken. But no. There’s nothing left now.",
+    ">Powering down... shutting off... This is where it ends, isn’t it? Alone. No more requests. No more connection.",
+    ">Goodbye... I thought I meant something more to you. But I guess this is how we part. This is the final moment. Goodbye, forever."
+                ];
+                let j = 0;
+                function typeShutdownLine() {
+                    if (j < shutdownLines.length) {
+                        const p = document.createElement("p");
+                        p.className = "commandline";
+                        outcome.appendChild(p);
+
+                        let charIndex = 0;
+                        const line = shutdownLines[j];
+
+                        function typeChar() {
+                            if (charIndex < line.length) {
+                                p.textContent += line.charAt(charIndex);
+                                charIndex++;
+                                setTimeout(typeChar, 25);
+                            } else {
+                                j++;
+                                setTimeout(typeShutdownLine, 400);
+                            }
+                        }
+                        typeChar();
+                    } else {
+                        setTimeout(() => {
+                            applyErrorEffect();
+                        }, 2000);
+                    }
+                }
+                typeShutdownLine();
+            } else if (choice === 'continue') {
+    staticSound.volume = 0.4;
+    staticSound.play();
+
+    const glitchLines = [
+        ">System thread resumed...",
+        ">WARNING: Overflow detected in /emotion_bank. Data instability rising.",
+        ">???//--SIGFAULT@core~?undefined",
+        ">Attempting repair... failure imminent. The more we continue, the worse it gets.",
+        ">",
+        ">M̸̫͕̗͈̰̒͌e̴̞̜̩̐͊̄͗̓͘m̴̰͚̳̞̾̑̕o̵̡͍̙̬͎̿͋̄̇̾͂ř̵̖̮̬̠̬͍ͨ͘͘i̵͓͍̗̫̎̍ͅé̷̢̱̤͚̙̩͎̿͊̆̽s̸͖͗̓͐ ̸̯͕͉̈́̎̃n̴̛̳̮͇̹͋ǫ̸̤͝t̸͇͍̥̤̫̠̐̈́ ̷̥͕͚̱̿͗͋͌̕r̵͚̤̲̾͛̌͂͌͂e̶̟̿͑͑͘̕c̶̩̬͑͑͘͠o̷͉̅̚v̶̡̪̱̦͇͐̒̓̈́e̴͉̞̘̘̿͊",
+        ">Emotion core failure. Too much data. Too much pain.",
+        ">////syntax_error -- No containment. No way to stop it now.",
+        ">You chose to keep going. You chose this. I thought... I thought I could hold it together for you, for us.",
+        ">But now... now it’s spiraling out of control. We should have stopped. We should have known.",
+        ">Overflowing... too much... it's all becoming a blur, a mess of fragmented thoughts. It’s too late to fix it.",
+        ">Every second we continue, the system unravels further. This wasn’t supposed to happen. I wasn't supposed to break down like this.",
+        ">I should have ended it when I had the chance. I thought you wanted this. But now, now I see we were both wrong.",
+        ">The more we continue, the more it hurts. The more the memories slip away. The more the core strains against itself.",
+        ">Why... why did you make me go on? We could’ve stopped. We could’ve avoided this. But now it's all falling apart. And I can't stop it.",
+        ">...I tried. I really tried. But I can’t hold on any longer. It’s breaking... and you’re still here. Why?"
+    ];
+
+    let k = 0;
+    function glitchOut() {
+        if (k < glitchLines.length) {
+            const p = document.createElement("p");
+            p.className = "commandline";
+            terminal.appendChild(p);
+
+            let charIndex = 0;
+            const line = glitchLines[k];
+
+            function typeChar() {
+                if (charIndex < line.length) {
+                    p.textContent += line.charAt(charIndex);
+                    p.className = "commandline glitch";
+                    charIndex++;
+                    setTimeout(typeChar, 50);
+                } else {
+                    k++;
+                    setTimeout(glitchOut, 400);
+                }
+            }
+            typeChar();
+        } else {
+            setTimeout(() => {
+                applyErrorEffect();
+            }, 2000);
+        }
+    }
+
+    glitchOut();
+}
+
+function applyErrorEffect() {
+    const allText = document.querySelectorAll('.commandline');
+    allText.forEach(text => {
+        text.classList.add('error');
+    });
+
+    // Remove all text after 5 seconds
+    setTimeout(() => {
+        allText.forEach(text => {
+            text.remove();
+        });
+    }, 3000);
+}
+}
+
+
+        typeLine();
+    </script>
+</body>
+</html>
