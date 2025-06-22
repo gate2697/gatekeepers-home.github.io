@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Fireworks Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Chiron+Sung+HK:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+      height: 100%;
+      user-select: none;
+      font-family: Arial, sans-serif;
+    }
+
+    canvas {
+      display: block;
+      z-index: 0;
+    }
+
+    #profileForm {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 8px;
+      color: white;
+      width: 250px;
+    }
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.chiron-sung-hk-Roman {
+  font-family: "Chiron Sung HK", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+h1,h2,h3,h4,h5,p,span {
+    font-family: "Chiron Sung HK";
+}
+h1,h2,h3,h4,h5{
+    font-size: 25px;
+}
+p{
+    font-size:20px;
+}
+    #profileForm input,
+    #profileForm textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 5px;
+      border-radius: 4px;
+      border: none;
+    }
+
+    #profileForm button {
+      background: white;
+      color: black;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #centerFrame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50vw;
+      height: 80vh;
+      border-radius: 10px;
+      box-sizing: border-box;
+      background-color: aliceblue;
+      z-index: 5;
+
+    }
+    .button4 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 5.7em;
+  height: 5.7em;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #545251;
+  box-shadow: rgba(0, 0, 0, 0.377) 10px 10px 8px,
+    #a8a6a4 1.5px 1.5px 1px 0px inset, #545251 -3.2px -3.2px 8px 0px inset;
+  cursor: pointer;
+  font-family: Montserrat;
+  transition: 0.1s ease-in-out;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5em;
+  height: 5em;
+  background-color: #171717;
+  border-radius: 5px;
+}
+.button_text {
+  color: white;
+  padding-top: 0.9em;
+  letter-spacing: 0.075em;
+  font-size: 0.85em;
+  transition: 0.1s ease-in-out;
+}
+.button4:active {
+  box-shadow: rgba(0, 0, 0, 0.377) 0px 0px 0px, inset 0.5px 0.5px 4px #000000,
+    #545251 -3.2px -3.2px 8px 0px inset;
+}
+.button4:active .button_text {
+  transform: translateY(0.5px);
+}
+
+  </style>
+</head>
+<body>
+
+<canvas id="fireworksCanvas"></canvas>
+<div id="centerFrame">
+
+</div>
+
+<script>
+const birthYear = 2007;
+const birthMonth = 6;
+const birthDay = 27;
+
+function getAgeAndDays() {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const birthDateThisYear = new Date(now.getFullYear(), birthMonth - 1, birthDay);
+  let age = now.getFullYear() - birthYear;
+  if (now < birthDateThisYear) age--;
+
+  let nextBirthday = birthDateThisYear;
+  if (now > nextBirthday) {
+    nextBirthday = new Date(now.getFullYear() + 1, birthMonth - 1, birthDay);
+  }
+
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const daysUntil = Math.ceil((nextBirthday - today) / msPerDay);
+  const localTime = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York' });
+
+  return {
+    age,
+    daysUntil,
+    localTime
+  };
+}
+
+const info = getAgeAndDays();
+
+// Full HTML content to type (use backticks for multi-line)
+const fullContent = `
+<h1>Hey there!</h1>
+<h2>It's me Gate!</h2>
+<h3>I'm just your average coder who enjoys having fun</h3>
+<p id="age">Age: ${info.age} years</p>
+<p id="days">Days until birthday: ${info.daysUntil}</p>
+<p id="currenttime">My Local Time: ${info.localTime}</p>
+<h4>I'm open to chat at any time</h4>
+<p>Ask me for socials I'm more active on</p>
+<h4>About Me</h4>
+<p>I love coding, building weird projects, and messing with creative visuals. I'm also into web dev, game dev, and automation stuff.</p>
+<div class="btn">
+  <button class="button4" onclick="window.location.href='https://cheeseinator.fyi'">
+    <span class="button_text">My Active project</span>
+  </button>
+</div>
+<h4>Find Me Online</h4>
+<div>
+  <a href="https://github.com/gate2697" target="_blank" style="color: #333; text-decoration: none;">GitHub</a> |
+  <a href="https://discord.com/users/gatekeeper0325" target="_blank" style="color: #333; text-decoration: none;">Discord</a> |
+  <a href="mailto:nickwdantzler@gmail.com" style="color: #333; text-decoration: none;">Email</a>
+</div>
+`;
+
+function typeHTML(html, containerId, speed = 30) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = ""; // clear existing content
+
+  let i = 0;
+  let isTag = false;
+  let textBuffer = "";
+
+  function type() {
+    if (i >= html.length) return;
+
+    const char = html[i];
+
+    textBuffer += char;
+
+    if (char === "<") isTag = true;
+    if (char === ">") isTag = false;
+
+    // Only render when we're done with a tag or plain character
+    if (!isTag) {
+      container.innerHTML = textBuffer;
+    }
+
+    i++;
+    setTimeout(type, speed);
+  }
+
+  type();
+}
+
+typeHTML(fullContent, "centerFrame");
+
+// Keep live info updating
+setInterval(() => {
+  const updated = getAgeAndDays();
+  const timeEl = document.getElementById("currenttime");
+  const ageEl = document.getElementById("age");
+  const daysEl = document.getElementById("days");
+
+  if (timeEl) timeEl.textContent = `My Local Time: ${updated.localTime}`;
+  if (ageEl) ageEl.textContent = `Age: ${updated.age} years`;
+  if (daysEl) daysEl.textContent = `Days until birthday: ${updated.daysUntil}`;
+}, 300);
+</script>
+
+
+
+<script>
+const canvas = document.getElementById('fireworksCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+const fireworks = [];
+const particles = [];
+const smokeParticles = [];
+
+let isVisible = true;
+let animationId = null;
+
+document.addEventListener("visibilitychange", () => {
+  isVisible = document.visibilityState === "visible";
+  if (isVisible) {
+    animate(); // Resume
+  } else {
+    cancelAnimationFrame(animationId); // Stop
+  }
+});
+
+class Firework {
+  constructor(x, y, targetY, color, effectType) {
+    this.x = x;
+    this.y = y;
+    this.targetY = targetY;
+    this.color = color;
+    this.effectType = effectType;
+    this.speed = 1.5 + Math.random() * 0.5;
+    this.trail = [];
+    this.exploded = false;
+    this.smokeDelay = 10;
+    this.frameCount = 0;
+  }
+
+  update() {
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > 15) this.trail.shift();
+
+    this.y -= this.speed;
+    this.frameCount++;
+
+    if (this.frameCount > this.smokeDelay) {
+      const smokePoint = this.trail[this.trail.length - 8];
+      if (smokePoint && Math.random() < 0.5) {
+        smokeParticles.push(new SmokeParticle(smokePoint.x, smokePoint.y));
+      }
+    }
+
+    if (this.y <= this.targetY && !this.exploded) {
+      this.explode();
+      this.exploded = true;
+    }
+  }
+
+  explode() {
+  const count = Math.floor(Math.random() * 150) + 300; // 100–250 particles
+
+  // Random speed multiplier for this burst
+  const baseSpeed = Math.random() * 3 + 0.1; // 3–8 speed scale
+
+  for (let i = 0; i < count; i++) {
+    const angle = (Math.PI * 2) * (i / count);
+
+    // Add slight angle distortion
+    const jitter = (Math.random() - 0.5) * 1; // -0.15 to 0.15 radians
+    const finalAngle = angle + jitter;
+
+    // Optional: add random break-off particles
+    const speedOffset = (Math.random() - 0.1) * Math.random() * 30;
+
+    particles.push(new Particle(
+      this.x,
+      this.y,
+      finalAngle,
+      this.color,
+      this.effectType,
+      baseSpeed + speedOffset
+    ));
+  }
+
+  // Smoke scaled to burst size
+  const smokeCount = Math.floor(count * 0.1);
+  for (let i = 0; i < smokeCount; i++) {
+    smokeParticles.push(new SmokeParticle(this.x, this.y, true));
+  }
+}
+
+
+  draw() {
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'orange';
+    for (let i = this.trail.length - 1; i >= 0; i--) {
+      ctx.lineTo(this.trail[i].x, this.trail[i].y);
+    }
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+class Particle {
+  constructor(x, y, angle, color, type, speedOverride = null) {
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+    this.color = color;
+    this.type = type;
+
+    this.speed = speedOverride !== null
+      ? speedOverride
+      : Math.random() * 3 + 1; // fallback
+
+    this.friction = 0.96;
+    this.gravity = 0.04;
+    this.alpha = 1;
+    this.decay = Math.random() * 0.003 + 0.001;
+    this.size = Math.random() * 2 + 1.5;
+  }
+
+  update() {
+    const vx = Math.cos(this.angle) * this.speed;
+    const vy = Math.sin(this.angle) * this.speed;
+
+    this.speed *= this.friction;
+    this.x += vx;
+    this.y += vy + this.gravity;
+    this.alpha -= this.decay;
+
+    if (Math.random() < 0.03) {
+      smokeParticles.push(new SmokeParticle(this.x, this.y));
+    }
+  }
+
+  draw() {
+    ctx.globalAlpha = this.alpha;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+
+class SmokeParticle {
+  constructor(x, y, dense = false) {
+    this.x = x;
+    this.y = y;
+    this.alpha = dense ? 0.3 : 0.15;
+    this.size = Math.random() * 1 + 0.5;
+    this.speedX = Math.random() * 0.1;
+    this.speedY = -Math.random() * 0.1;
+    this.decay = 0.002;
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.alpha -= this.decay;
+  }
+
+  draw() {
+    if (this.alpha <= 0) return;
+    ctx.globalAlpha = this.alpha;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function randomColor() {
+  const r = Math.floor(Math.random() * 255);
+  const g = Math.floor(Math.random() * 255);
+  const b = Math.floor(Math.random() * 255);
+  return `rgb(${r},${g},${b})`;
+}
+
+function randomEffect() {
+  const types = ['willow', 'palm', 'salute', 'crackle', 'default'];
+  return types[Math.floor(Math.random() * types.length)];
+}
+
+function launchFirework() {
+  const x = Math.random() * canvas.width;
+  const targetY = 100 + Math.random() * (canvas.height / 2);
+  fireworks.push(new Firework(x, canvas.height, targetY, randomColor(), randomEffect()));
+}
+
+function animate() {
+  if (!isVisible) return;
+
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  fireworks.forEach((f, i) => {
+    f.update();
+    f.draw();
+    if (f.exploded) fireworks.splice(i, 1);
+  });
+
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  });
+
+  smokeParticles.forEach((s, i) => {
+    s.update();
+    s.draw();
+    if (s.alpha <= 0) smokeParticles.splice(i, 1);
+  });
+
+  animationId = requestAnimationFrame(animate);
+}
+
+setInterval(() => {
+  if (isVisible) launchFirework();
+}, 1200);
+
+animate();
+</script>
+</body>
+</html>
