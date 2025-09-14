@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicholas Dantzler | Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2b2d42, #3a0ca3);
+      color: #f1f1f1;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+    }
+
+    /* floating background shapes */
+    .bg-shape {
+      position: fixed;
+      border-radius: 50%;
+      opacity: 0.15;
+      filter: blur(80px);
+      animation: float 18s infinite ease-in-out;
+      z-index: 0;
+    }
+    .shape1 {
+      width: 400px; height: 400px;
+      background: #ffdd57;
+      top: -150px; left: -100px;
+    }
+    .shape2 {
+      width: 350px; height: 350px;
+      background: #3a0ca3;
+      bottom: -120px; right: -100px;
+      animation-delay: 6s;
+    }
+    .shape3 {
+      width: 300px; height: 300px;
+      background: #4cc9f0;
+      top: 40%; left: 60%;
+      animation-delay: 12s;
+    }
+
+    header {
+      background: rgba(0,0,0,0.6);
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      color: #ffdd57;
+      text-shadow: 2px 2px 6px #000;
+    }
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+      color: #e0e0e0;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+    section h2 {
+      font-size: 2em;
+      border-bottom: 2px solid #ffdd57;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      color: #ffdd57;
+    }
+
+    .about, .traits, .skills, .projects, .contact {
+      background: rgba(255, 255, 255, 0.05);
+      margin-bottom: 40px;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .about:hover, .traits:hover, .skills:hover, .projects:hover, .contact:hover {
+      transform: translateY(-5px);
+    }
+
+    .traits-grid, .skills-grid, .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(0,0,0,0.3);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .contact form {
+      display: grid;
+      grid-gap: 15px;
+    }
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      background: #ffdd57;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #f9c74f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.5);
+      margin-top: 40px;
+      color: #999;
+      z-index: 1;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    @keyframes float {
+      0% {transform: translateY(0) translateX(0);}
+      50% {transform: translateY(-60px) translateX(40px);}
+      100% {transform: translateY(0) translateX(0);}
+    }
+  </style>
+</head>
+<body>
+  <!-- floating background elements -->
+  <div class="bg-shape shape1"></div>
+  <div class="bg-shape shape2"></div>
+  <div class="bg-shape shape3"></div>
+
+  <header>
+    <h1>Template, Gate, Doctorbroccoli</h1>
+    <p>Curious Mind | Creative Coder | Lifelong Learner</p>
+  </header>
+
+  <section class="about">
+    <h2>About Me</h2>
+    <p>
+      I’m Nicholas, a curious and creative person who thrives on exploration, problem-solving, and learning new things. I love finding unique ways to express myself, whether through coding, design, or brainstorming ideas that push limits. For me, it’s not just about projects—it’s about growth, perspective, and creativity.
+    </p>
+  </section>
+
+  <section class="traits">
+    <h2>Personality Traits</h2>
+    <div class="traits-grid">
+      <div class="card">
+        <h3>Innovative</h3>
+        <p>I enjoy experimenting with fresh ideas and finding creative solutions where others might see problems.</p>
+      </div>
+      <div class="card">
+        <h3>Detail-Oriented</h3>
+        <p>I like making things polished, balanced, and thoughtfully put together—whether in design, code, or presentation.</p>
+      </div>
+      <div class="card">
+        <h3>Adaptable</h3>
+        <p>I embrace change and am always open to learning new tools, languages, and approaches.</p>
+      </div>
+      <div class="card">
+        <h3>Collaborative</h3>
+        <p>I enjoy working with others and sharing ideas, believing teamwork can spark the best outcomes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills">
+    <h2>Skills & Languages</h2>
+    <div class="skills-grid">
+      <div class="card">
+        <h3>JavaScript</h3>
+        <p>I use JavaScript to bring ideas to life, from interactive websites to game systems and experiments.</p>
+      </div>
+      <div class="card">
+        <h3>Lua</h3>
+        <p>Lua is my go-to for Roblox development, creating gameplay mechanics, effects, and immersive systems.</p>
+      </div>
+      <div class="card">
+        <h3>HTML & CSS</h3>
+        <p>With HTML and CSS, I craft engaging and colorful websites that showcase creativity and precision.</p>
+      </div>
+      <div class="card">
+        <h3>C++,C#,C</h3>
+        <p>I use the C code languages for various software.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects">
+    <h2>Passions & Interests</h2>
+    <div class="projects-grid">
+      <div class="card">
+        <h3>Creative Design</h3>
+        <p>I love working on visuals, style, and aesthetic presentation that makes projects eye-catching and fun.</p>
+      </div>
+      <div class="card">
+        <h3>Gameplay & Interactivity</h3>
+        <p>Experimenting with how people interact with environments, stories, and mechanics inspires me to build engaging experiences.</p>
+      </div>
+      <div class="card">
+        <h3>Learning & Growth</h3>
+        <p>I’m always looking to grow my knowledge—whether through coding challenges, design experiments, or team collaborations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Contact</h2>
+    <ol>
+      <li>Discord:gatekeeper0325</li>
+      <li>Email:nickwdantzler@gmail.com</li>
+      <li>Any other contacts can be asked upon the above contacts</li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Nicholas Dantzler. All rights reserved.</p>
+  </footer>
+</body>
+</html>
