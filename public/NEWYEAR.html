@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gate</title>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/ds-digital" rel="stylesheet">
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+  font-family: "Science Gothic", sans-serif;
+}
+
+/* FIREWORKS BACKGROUND */
+#fireworksCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* CENTER CARD */
+.form {
+  width: 50vw;
+  height: 85vh;
+  background-color: rgba(151,151,151,0.95);
+  position: absolute;
+  top: 7.5%;
+  left: 25%;
+  border-radius: 10px;
+  z-index: 5;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* RAINBOW TEXT */
+.para {
+  animation: hueShift 2s infinite linear;
+  background: linear-gradient(to right, red, yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@keyframes hueShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* DIGITAL CLOCK */
+#clock {
+  font-family: 'DS-Digital';
+  font-size: 75px;
+}
+#newYearCountdown {
+  font-family: 'DS-Digital';
+  font-size: 30px;
+}
+/* DAY / NIGHT BACKGROUND TEXTURE */
+.day {
+  background: url("https://codehs.com/uploads/d46c5c745c52a54569a8a0ae63ad10b9");
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.night {
+  background: url("https://codehs.com/uploads/d7537292ae1be47cd8633afe12b27675");
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworksCanvas"></canvas>
+
+<div class="form">
+  <h1>Hello there!</h1>
+  <h3>The name’s Gate</h3>
+  <p>Template, Gatekeeper, or Doctorbroccoli</p>
+
+  <h2>My Current Time:</h2>
+  <h3 class="para" id="clock"></h3>
+  <h2>Countdown to The New Year:</h2>
+  <h3 id="newYearCountdown" class="para"></h3>
+
+  <p id="age"></p>
+
+  <p>I enjoy time with my friends</p>
+  <p>I can code websites and software</p>
+  <p>I like building random creative projects</p>
+  <p>I enjoy talking — I’m just bad at starting conversations</p>
+</div>
+
+<script>
+/* AGE */
+const birthdate = "2007-06-27";
+function updateAge() {
+  const birth = new Date(birthdate);
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  document.getElementById("age").innerText = "I'm " + age + " years old";
+}
+setInterval(updateAge, 1000);
+updateAge();
+function updateNewYearCountdown() {
+  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const currentYear = now.getFullYear();
+  const nextYear = new Date(`January 1, ${currentYear + 1} 00:00:00`);
+  
+  let diff = nextYear - now; // milliseconds until next year
+  if (diff < 0) diff = 0;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("newYearCountdown").textContent =
+    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+setInterval(updateNewYearCountdown, 1000);
+updateNewYearCountdown();
+
+/* CLOCK */
+const clock = document.getElementById("clock");
+function clockrun() {
+  const e = new Date(new Date().toLocaleString("en-US",{timeZone:"America/New_York"}));
+  let hr = e.getHours(), min = e.getMinutes(), sec = e.getSeconds();
+  let mer = "am";
+  if (hr >= 12) mer = "pm";
+  if (hr > 12) hr -= 12;
+  if (hr === 0) hr = 12;
+  clock.textContent =
+    `${hr.toString().padStart(2,"0")}:${min.toString().padStart(2,"0")}:${sec.toString().padStart(2,"0")} ${mer}`;
+  clock.className = mer === "pm" ? "night para" : "day para";
+  requestAnimationFrame(clockrun);
+}
+clockrun();
+</script>
+
+<script>
+/* FIREWORKS SYSTEM */
+const canvas = document.getElementById("fireworksCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+addEventListener("resize", () => {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
+
+const fireworks = [];
+const particles = [];
+
+class Firework {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = canvas.height;
+    this.target = Math.random() * canvas.height / 2;
+    this.speed = 2;
+    this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+
+    // Random particle count between 100 and 300
+    this.particleCount = Math.floor(Math.random() * 201) + 100; // 100 to 300
+  }
+  update() {
+    this.y -= this.speed;
+    if (this.y <= this.target) this.explode();
+  }
+  explode() {
+    for (let i = 0; i < this.particleCount; i++) {
+      particles.push(new Particle(this.x, this.y, this.color));
+    }
+    fireworks.splice(fireworks.indexOf(this), 1);
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, 2, 10);
+  }
+}
+
+class Particle {
+  constructor(x, y, color) {
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.angle = Math.random() * Math.PI * 2;
+    this.speed = Math.random() * 5 + 1;
+    this.alpha = 1;
+    this.size = 2;
+  }
+  update() {
+    this.x += Math.cos(this.angle) * this.speed;
+    this.y += Math.sin(this.angle) * this.speed;
+    this.alpha -= 0.01;
+  }
+  draw() {
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function animate() {
+  ctx.fillStyle = "rgba(0,0,0,0.2)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  fireworks.forEach(f => { f.update(); f.draw(); });
+  particles.forEach((p, i) => {
+    p.update(); p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  });
+
+  requestAnimationFrame(animate);
+}
+
+setInterval(() => fireworks.push(new Firework()), 500);
+animate();
+</script>
+
+
+
+</body>
+</html>
